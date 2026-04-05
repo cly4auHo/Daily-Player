@@ -2,12 +2,13 @@ using System;
 
 public static class DayController 
 {
-    private static DateTime date = DateTime.UtcNow;
+    private static DateTime date;
     
-    public static bool IsCurrentDay => CurrentDay == FormatDate(DateTime.UtcNow);
-    
+    public static bool IsCurrentDay => date == DateTime.UtcNow;
     public static string CurrentDay => FormatDate(date);
-
+    
+    public static void Init() => date = DateTime.UtcNow;
+    
     public static string PreviousDay
     {
         get
@@ -27,5 +28,5 @@ public static class DayController
         }
     }
     
-    private static string FormatDate(DateTime date) => date.ToString("ddMMyyyy");
+    private static string FormatDate(DateTime dateTime) => dateTime.ToString("ddMMyyyy");
 }
