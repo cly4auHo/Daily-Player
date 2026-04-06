@@ -4,11 +4,9 @@ using UnityEngine.Networking;
 
 public class Server
 {
-    private const string URL = "http://localhost:5187/video?id=";
-    
     public async Task DownloadVideo(string day)
     {
-        using var request = new UnityWebRequest($"{URL}{day}");
+        using var request = new UnityWebRequest($"http://localhost:5187/video?id={day}");
         
         request.downloadHandler = new DownloadHandlerFile(CashManager.BuildPath(day));
 
