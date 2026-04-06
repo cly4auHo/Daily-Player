@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController videoPlayer;
+    [SerializeField] private PlayerController videoPlayerPrefab;
     
-    private readonly Server server = new Server();
+    private PlayerController videoPlayer;
+    private Server server;
     
     private void Start()
     {
+        videoPlayer = Instantiate(videoPlayerPrefab);
+        server ??= new Server();
         DayController.Init();
         PlayVideo();
     }
@@ -17,6 +20,6 @@ public class GameManager : MonoBehaviour
         if (!CashManager.IsFileExist(DayController.CurrentDay))
             await server.DownloadVideo(DayController.CurrentDay);
         
-        videoPlayer.PlayVideo(DayController.CurrentDay);
+        videoPlayer.PlayVideo(CashManager.BuildPath(DayController.CurrentDay));
     }
 }
